@@ -1,16 +1,5 @@
-%-----------------------------------------------------------------------------%
 % Golomb rulers
-% prob006 in csplib
-%-----------------------------------------------------------------------------%
-% From csplib:
-% A Golomb ruler may be defined as a set of m integers 0 = a_1 < a_2 <
-% ... < a_m such that the m(m-1)/2 differences a_j - a_i, 1 <= i < j
-% <= m are distinct. Such a ruler is said to contain m marks and is of
-% length a_m. The objective is to find optimal (minimum length) or
-% near optimal rulers.
-%
-% This is the "ternary constraints and an alldifferent" model
-%-----------------------------------------------------------------------------%
+% may be implemented exploiting different strategies 
 
 include "globals.mzn";
 
@@ -28,7 +17,8 @@ constraint forall ( i in 1..m-1 ) ( mark[i] < mark[i+1] );
 
 constraint alldifferent(differences);
 
-    % Symmetry breaking
+% A simple symmetry idea is to impose the ordering of the ruler 
+% so to avoid permutations 
 constraint differences[1] < differences[(m*(m-1)) div 2];
 
 solve :: int_search(mark, input_order, indomain, complete)
